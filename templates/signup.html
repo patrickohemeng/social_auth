@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Login, registration forms">
+    <meta name="author" content="Seong Lee">
+
+    <title>Home Page</title>
+
+    <!-- Stylesheets -->
+    <link href="{{ STATIC_URL }}css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/animation.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/checkbox/orange.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/preview.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/authenty.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/style.css" rel="stylesheet">
+    <!-- Font Awesome CDN -->
+    <link href="{{ STATIC_URL }}css/font-awesome.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,700,300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,700' rel='stylesheet' type='text/css'>
+
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+    <section id="signup_window" class="authenty signup-window">
+        <div class="section-content">
+            <div class="wrap">
+                <div class="container">
+                    <div class="row form-wrap" data-animation="bounceIn">
+                        <i class="fa fa-times-circle"></i>
+                        <div class="title">
+                            <h3 id="form-title">Create an account</h3>
+                        </div>
+                        <div class="col-xs-12 col-sm-5 col-md-4 col-md-offset-1">
+                            <div class="sns-signin">
+                                <a class="btn btn-primary" href="#">
+                                    <i class="fa fa-facebook"></i>Sign in via Facebook</a>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-2 col-sm-1">
+                            <div class="horizontal-divider"></div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-4">
+                            <div class="normal-signup">
+                                <form id="user_form" method="post" action="/users/register/" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <p id="validation_error">{{ profile_form.non_field_errors.as_text }}</p>
+                                   <div class="form-group">
+                                        <p id="validation_error"> {{ profile_form.username.errors.as_text }} </p>
+                                        <input type="text" class="form-control" placeholder="Username"  name="username" id="id_username" value="{{ profile_form.data.username }}">
+                                        <p id="validation_error"> {{ profile_form.email.errors.as_text }} </p>
+                                        <input type="email" class="form-control" placeholder="Email"  name="email" id="id_email" value="{{ profile_form.data.email }}">
+                                        <p id="validation_error"> {{ profile_form.first_name.errors.as_text }} </p>
+                                        <input type="text" class="form-control" placeholder="First name" name="first_name" id="id_first_name" value="{{ profile_form.data.first_name }}">
+                                        <p id="validation_error"> {{ profile_form.phonenumber.errors.as_text }} </p>
+                                        <input type="text" class="form-control" placeholder="Phone Number" name="phonenumber" id="id_phonenumber" value="{{ profile_form.data.phonenumber }}">
+                                        <p id="validation_error"> {{ profile_form.password.errors.as_text }} </p>
+                                        <input type="password" class="form-control" placeholder="Enter Password" name="password" id="id_password" >
+                                       <input type="password" class="form-control" placeholder="Re-enter Password" name="password1" id="id_password2">
+                                    </div>
+                                    <div class="row">
+                                        <!-- <div class="col-md-6">
+                                            <a href="#password_recovery" id="forgot_from_3">need help?</a>
+                                        </div> -->
+                                        <div class="col-md-5 col-md-offset-7">
+                                            <button type="submit" class="btn btn-block signup">Sign Up</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+</section>
+
+
+<!-- js library -->
+<script src="{{ STATIC_URL }}js/jquery.min.js"></script>
+<script src="{{ STATIC_URL }}js/jquery-ui.min.js"></script>
+<script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+<script src="{{ STATIC_URL }}js/jquery.icheck.min.js"></script>
+<script src="{{ STATIC_URL }}js/waypoints.min.js"></script>
+
+<!-- authenty js -->
+<script src="{{ STATIC_URL }}js/authenty.js"></script>
+
+<!-- preview scripts -->
+<script src="{{ STATIC_URL }}js/preview/jquery.malihu.PageScroll2id.js"></script>
+<script src="{{ STATIC_URL }}js/preview/jquery.address-1.6.min.js"></script>
+<script src="{{ STATIC_URL }}js/preview/scrollTo.min.js"></script>
+<script src="{{ STATIC_URL }}js/preview/init.js"></script>
+
+
+<!-- preview scripts -->
+<script>
+    (function($) {
+
+        // get full window size
+        $(window).on('load resize', function(){
+            var w = $(window).width();
+            var h = $(window).height();
+
+            $('section').height(h);
+
+        });
+
+
+
+        // set focus on input
+        var firstInput = $('section').find('input[type=text], input[type=email]').filter(':visible:first');
+
+        if (firstInput != null) {
+            firstInput.focus();
+        }
+       $('[data-animation]').waypoint(function (direction) {
+            if (direction == "down") {
+                $(this).addClass("animated " + $(this).data("animation"));
+            }
+        }, {
+            offset: '90%'
+        }).waypoint(function (direction) {
+            if (direction == "up") {
+                $(this).removeClass("animated " + $(this).data("animation"));
+            }
+        }, {
+            offset: '100%'
+        });
+
+         $('html, body').animate({
+            scrollTop: $('#signup_window').offset().top
+         }, 'slow');
+
+    })(jQuery);
+</script>
+
+</body>
+
+</html>
