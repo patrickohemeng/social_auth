@@ -27,7 +27,7 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -40,7 +40,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'south',
-    'simple_email_confirmation',
+    'registration',
     'Accounts',
 )
 AUTH_PROFILE_MODULE= 'Accounts.UserProfile'
@@ -102,3 +102,15 @@ STATICFILES_DIRS = (
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+from .credentials import *
+EMAIL_USE_TLS = EMAIL_USE_TLS
+EMAIL_HOST=EMAIL_HOST
+EMAIL_HOST_USER=EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD=EMAIL_HOST_PASSWORD
+EMAIL_PORT=EMAIL_PORT
+DEFAULT_FROM_EMAIL=DEFAULT_FROM_EMAIL
+ACCOUNT_ACTIVATION_DAYS=7
+
+
+LOGIN_REDIRECT_URL = '/users/profile/'

@@ -15,7 +15,7 @@
     <link href="{{ STATIC_URL }}css/checkbox/orange.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}css/preview.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}css/authenty.css" rel="stylesheet">
-    <link href="{{ STATIC_URL }}css/style.css" rel="stylesheet">
+
     <!-- Font Awesome CDN -->
     <link href="{{ STATIC_URL }}css/font-awesome.css" rel="stylesheet">
 
@@ -52,21 +52,21 @@
                         </div>
                         <div class="col-xs-12 col-sm-6 col-md-4">
                             <div class="normal-signup">
-                                <form id="user_form" method="post" action="/users/register/" enctype="multipart/form-data">
+                                <form id="user_form" method="post" action="{% url 'registration_register' %}" enctype="multipart/form-data">
                                     {% csrf_token %}
-                                    <p id="validation_error">{{ profile_form.non_field_errors.as_text }}</p>
+                                    <p id="validation_error">{{ form.non_field_errors.as_text }}</p>
                                    <div class="form-group">
-                                        <p id="validation_error"> {{ profile_form.username.errors.as_text }} </p>
-                                        <input type="text" class="form-control" placeholder="Username"  name="username" id="id_username" value="{{ profile_form.data.username }}">
-                                        <p id="validation_error"> {{ profile_form.email.errors.as_text }} </p>
-                                        <input type="email" class="form-control" placeholder="Email"  name="email" id="id_email" value="{{ profile_form.data.email }}">
-                                        <p id="validation_error"> {{ profile_form.first_name.errors.as_text }} </p>
-                                        <input type="text" class="form-control" placeholder="First name" name="first_name" id="id_first_name" value="{{ profile_form.data.first_name }}">
-                                        <p id="validation_error"> {{ profile_form.phonenumber.errors.as_text }} </p>
-                                        <input type="text" class="form-control" placeholder="Phone Number" name="phonenumber" id="id_phonenumber" value="{{ profile_form.data.phonenumber }}">
-                                        <p id="validation_error"> {{ profile_form.password.errors.as_text }} </p>
-                                        <input type="password" class="form-control" placeholder="Enter Password" name="password" id="id_password" >
-                                       <input type="password" class="form-control" placeholder="Re-enter Password" name="password1" id="id_password2">
+                                        <p id="validation_error"> {{ form.username.errors.as_text }} </p>
+                                        <input type="text" class="form-control" placeholder="Username"  name="username" id="id_username" value="{{ form.data.username }}">
+                                        <p id="validation_error"> {{ form.email.errors.as_text }} </p>
+                                        <input type="email" class="form-control" placeholder="Email"  name="email" id="id_email" value="{{ form.data.email }}">
+                                        <!--<p id="validation_error"> {{ form.first_name.errors.as_text }} </p>
+                                        <input type="text" class="form-control" placeholder="First name" name="first_name" id="id_first_name" value="{{ form.data.first_name }}">
+                                        <p id="validation_error"> {{ form.phonenumber.errors.as_text }} </p>
+                                        <input type="text" class="form-control" placeholder="Phone Number" name="phonenumber" id="id_phonenumber" value="{{ form.data.phonenumber }}">-->
+                                        <p id="validation_error"> {{ form.password.errors.as_text }} </p>
+                                        <input type="password" class="form-control" placeholder="Enter Password" name="password1" id="id_password1" >
+                                        <input type="password" class="form-control" placeholder="Re-enter Password" name="password2" id="id_password2">
                                     </div>
                                     <div class="row">
                                         <!-- <div class="col-md-6">

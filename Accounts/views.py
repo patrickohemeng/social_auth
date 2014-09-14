@@ -1,12 +1,48 @@
+from django.contrib.auth import authenticate,login
 from django.contrib.auth.models import User
+from django.http import HttpResponseRedirect, HttpResponse
+
 from django.shortcuts import render, render_to_response
 
 from Accounts.forms import UserProfileForm
 from django.template import RequestContext
 
 def index(request):
+    context = RequestContext(request)
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+
+        user = authenticate(username=username, password=password)
+        if user:
+            # Is the account active? It could have been disabled.
+            if user.is_active:
+                # If the account is valid and active, we can log the user in.
+                # We'll send the user back to the homepage.
+                login(request, user)
+                return render_to_response('profile.html', {}, context)
+            else:
+                error_message="Your have not activated your account. Please check your email and validate it"
+                return render_to_response('registration/login.html', {'error_message':error_message}, context)
+                # An inactive account was used - no logging in!
+
+        else:
+            # Bad login details were provided. So we can't log the user in.
+            print "Invalid login details: {0}, {1}".format(username, password)
+            error_message="Login details invalid"
+            return render_to_response('registration/login.html', {'error_message':error_message}, context)
+
+    # The request is not a HTTP POST, so display the login form.
+    # This scenario would most likely be a HTTP GET.
+    else:
+        # No context variables to pass to the template system, hence the
+        # blank dictionary object...
+        return render_to_response('registration/login.html', {}, context)
+
+
+def profile(request):
     context=RequestContext(request)
-    return render_to_response("index.html",context)
+    return render_to_response("profile.html",{},context)
 
 def register(request):
     context = RequestContext(request)
